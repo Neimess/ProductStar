@@ -10,3 +10,6 @@ class Twit:
         return self.id
     def get_user_id(self):
         return self.user_id
+    
+    def update_body(self, body):
+        self.body = body

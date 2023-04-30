@@ -25,10 +25,10 @@ def ping():
 
 @app.route('/user/<int:user_id>/twit', methods = ['GET'])
 def read_user_twit(user_id):
-    twit = next((u for u in twits if twit.get_user_id() == user_id), None)
+    twit = next((twit for twit in twits if twit.get_user_id() == user_id), None)
     if twit:
         return jsonify(twit)
-    return jsonify({"error": "User not found"}), 404
+    return jsonify({"error": "User not found"})
 
 
 @app.route('/twits', methods = ['GET'])
@@ -43,13 +43,29 @@ def create_twit(id_user):
     twits.append(twit)
     return jsonify({'status': 'success'})
 
+@app.route("/twit/<int:twit_id>", methods = ['DELETE'])
+def delete_twit(twit_id):
+    for twit in twits:
+        if twit.get_id() == twit_id:
+            twits.remove(twit)
+            return jsonify({"message:": "delete successful" })
+    return jsonify({"message": "delete failed"})
+
+@app.route("/twit/<int:twit_id>", methods = ['PATCH'])
+def update_twit(twit_id):
+    for twit in twits:
+        if twit.get_id() == twit_id:
+            twit_json = request.get_json()
+            twits.append(twit.update_body(twit_json['body']))
+            return jsonify({"message:": "update successful" })
+    return jsonify({"error": "update failed"})
+
 @app.route ("/twit/<int:id_twit>/comments", methods=["POST"])
 def create_comment(id_twit):
     comment_json = request.get_json()
     comment = Comment(body=comment_json['body'],
                       twit_id = id_twit, 
-                      id=comment_json['id'])
-                    
+                      id=comment_json['id'])  
     comments.append(comment)
     return jsonify({'status': 'success'})
 
@@ -58,18 +74,18 @@ def read_comment(id_twit):
     comment = next((u for u in comments if u.get_twit_id() == id_twit), None)
     if comment:
         return jsonify(comment)
-    return jsonify({"error": "User not found"}), 404
+    return jsonify({"error": "User not found"})
 
 
 
 @app.route("/comments/<int:comment_id>", methods=["DELETE"])
 def delete_comment(comment_id):
-    comment = next((comment for comment in comments if comment["id"] == comment_id), None)
+    comment = next((comment for comment in comments if comment.get_id() == comment_id), None)
     if comment:
         comments.remove(comment)
         return jsonify({"message": "Comment deleted"})
     else:
-        return jsonify({"error": "Comment not found"}), 404
+        return jsonify({"error": "Comment not found"})
     
     
 @app.route("/users", methods=["GET"])
@@ -82,7 +98,7 @@ def create_user():
     username_json = request.get_json()
     new_user = User(username=username_json['username'], id=username_json['id'])
     users.append(new_user)
-    return jsonify({"success": "user added"})
+    return jsonify({"message": "user added"})
 
 @app.route("/users/<int:user_id>", methods=["GET"])
 def get_user(user_id):
@@ -90,6 +106,10 @@ def get_user(user_id):
     if user:
         return jsonify(user)
     else:
-        return jsonify({"error": "User not found"}), 404
+        return jsonify({"error": "User not found"})
+    
+
+
 if __name__ == '__main__':
     app.run(debug=True)
+    
