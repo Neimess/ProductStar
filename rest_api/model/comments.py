@@ -1,8 +1,10 @@
-import uuid
-class comments:
-    def __init__(self, body, twit_id, id):
+
+class Comment:
+    def __init__(self, body:str, twit_id:int, id:int):
         self.body = body
-        self.id_twit = twit_id
+        self.twit_id = twit_id
         self.id = id
-    def id_check(self):
+    def get_id(self):
         return self.id
+    def get_twit_id(self):
+        return self.twit_id
