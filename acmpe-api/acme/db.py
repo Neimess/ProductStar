@@ -3,8 +3,10 @@ from typing import List
 import model
 import storage
 
+
 class DBException(Exception):
     pass
+
 
 class EventDB:
     def __init__(self):
@@ -39,3 +41,9 @@ class EventDB:
             return self._storage.delete(_id)
         except Exception as ex:
             raise DBException(f"failed DELETE operation with: {ex}")
+
+    def check_event_date(self, _date: str):
+        try:
+            return self._storage.check_event_date(_date)
+        except Exception as ex:
+            raise DBException(f"date already busy: {ex}")

@@ -2,8 +2,10 @@ from typing import List
 
 import model
 
+
 class StorageException(Exception):
     pass
+
 
 class LocalStorage:
     def __init__(self):
@@ -34,3 +36,8 @@ class LocalStorage:
         if _id not in self._storage:
             raise StorageException(f"{_id} not found in storage")
         del self._storage[_id]
+
+    def check_event_date(self, _date: str):
+        for event in self.list():
+            if event.date == _date:
+                raise StorageException(f"already an event for {_date}")

@@ -24,11 +24,10 @@ class EventLogic:
             raise LogicException(f"title lenght > MAX: {TITLE_LIMIT}")
         if event.text is None or len(event.text) > TEXT_LIMIT:
             raise LogicException(f"text lenght > MAX: {TEXT_LIMIT}")
-        if event.date is not None:
-            raise LogicException("there is already an event for this date")
 
     def create(self, event: model.Event) -> str:
         self._validate_event(event)
+        self._event_db.check_event_date(event.date)
         try:
             return self._event_db.create(event)
         except Exception as ex:

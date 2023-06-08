@@ -1,11 +1,10 @@
+import logic
+import model
 from flask import Flask
 from flask import request
 
 app = Flask(__name__)
 
-
-import model
-import logic
 
 _event_logic = logic.EventLogic()
 
