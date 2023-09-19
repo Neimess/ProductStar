@@ -8,7 +8,8 @@ def execution_time(function):
         result = function(*args, **kwargs)
         end_time = time.time()
         print(
-            f"Function {function.__name__} took {end_time - start_time} seconds to run")
+            "Function {function.__name__} took "
+            f"{end_time - start_time} seconds to run")
         return result
     return wrapper
 
@@ -67,6 +68,7 @@ def test_collatz(num):
 
 def test_square(lst: list):
     print(calculate_square_roots(lst, "down"))
+
 
 if __name__ == "__main__":
     test_palidromes(["racecar", "level", "deified"])
