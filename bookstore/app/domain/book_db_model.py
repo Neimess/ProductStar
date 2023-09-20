@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-
+import datetime
 
 db = SQLAlchemy()
 
@@ -10,5 +10,5 @@ class SQLBook(db.Model):
     publish_year = db.Column(db.Integer)
     pages_count = db.Column(db.Integer)
     description = db.Column(db.String)
-    created_at = db.Column(db.String)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow())
 

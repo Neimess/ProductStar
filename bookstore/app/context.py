@@ -1,13 +1,14 @@
 from flask import g
 
-from application.book_service import BookService
-from storage.infra.mem_storage import MemoryStorage
-from storage.infra.sqlite_storage import SQLiteStorage
+from application.book_service import ItemService
+from storage.infra.mem_storage import LocalStorage
+from storage.infra.sqlite_storage import DataBaseStorage
 
 class Context:
     def __init__(self, app):
-        book_storage = SQLiteStorage(app)
-        self.book_service = BookService(book_storage)
+        book_storage = DataBaseStorage(app)
+        # book_storage = LocalStorage()
+        self.book_service = ItemService(book_storage)
 
 
 def get_context(app):
