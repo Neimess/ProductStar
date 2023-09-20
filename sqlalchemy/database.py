@@ -12,7 +12,6 @@ class Book(db.Model):
     genre_name = db.Column(db.String, db.ForeignKey("genre.name", ondelete='SET NULL'))
     genre = relationship("Genre", back_populates="books")
 
-
 class Genre(db.Model):
     name = db.Column(db.String, primary_key = True)
     books = relationship(
