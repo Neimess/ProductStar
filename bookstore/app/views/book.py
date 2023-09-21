@@ -27,7 +27,13 @@ def add_book():
     book = Book(**request.json)
     book_id = ctx.book_service.add(book)
     if book_id is not None:
-        return jsonify({"id": book_id, "book": book}, 200)
+        return jsonify(
+            {
+            "id": book_id, 
+            "book": book
+            }, 
+            200
+        )
     return jsonify({"Something went wrong"}, 400)
 
 
