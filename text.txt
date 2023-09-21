@@ -1,3 +1,0 @@
-<<<<<<< HEAD
-<h1> This is new file for homework 12:23 PM</h1>
->>>>>>> 8a96c0616c82a4802f3065acc404765e42950bae
