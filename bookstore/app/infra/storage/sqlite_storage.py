@@ -63,9 +63,11 @@ class DataBaseStorage(MemoryStorage):
     def update(self, new_item, id):
         # Создаем запрос к таблице Book и 
         # фильтруем записи по ID
-        query = db.session.query(SQLBook).filter(SQLBook.id == id).first()
+        query = db.session.query(SQLBook).filter(SQLBook.id 
+                                                 == id).first()
         # Если существует, то дальнейший код, если нет, то 401
-        existing_item = db.session.query(SQLBook).filter(SQLBook.id == id).first()
+        existing_item = db.session.query(SQLBook).filter(SQLBook.id 
+                                                         == id).first()
 
         if existing_item:
             # Обновляем атрибуты записи
