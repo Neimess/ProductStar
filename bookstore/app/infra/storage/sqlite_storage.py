@@ -11,8 +11,8 @@ class DataBaseStorage(MemoryStorage):
     не передавая в него app
     '''
 
-    def __init__(self, 
-                 app=None, 
+    def __init__(self,
+                 app=None,
                  database_uri="sqlite:///test.db"):
         self.database_uri = database_uri
         self.db = db
@@ -35,7 +35,7 @@ class DataBaseStorage(MemoryStorage):
             publish_year=item.publish_year,
             pages_count=item.pages_count,
             description=item.description,
-            created_at=datetime.strptime(item.created_at, 
+            created_at=datetime.strptime(item.created_at,
                                          "%Y-%m-%d")
         )
         '''
@@ -61,13 +61,13 @@ class DataBaseStorage(MemoryStorage):
         }
 
     def update(self, new_item, id):
-        # Создаем запрос к таблице Book и 
+        # Создаем запрос к таблице Book и
         # фильтруем записи по ID
-        query = db.session.query(SQLBook).filter(SQLBook.id 
+        query = db.session.query(SQLBook).filter(SQLBook.id
                                                  == id).first()
         # Если существует, то дальнейший код, если нет, то 401
-        existing_item = db.session.query(SQLBook).filter(SQLBook.id 
-                                                         == id).first()
+        existing_item = db.session.query(SQLBook).filter(
+            SQLBook.id == id).first()
 
         if existing_item:
             # Обновляем атрибуты записи
@@ -75,7 +75,7 @@ class DataBaseStorage(MemoryStorage):
             existing_item.publish_year = new_item.publish_year
             existing_item.pages_count = new_item.pages_count
             existing_item.description = new_item.description
-            existing_item.created_at = datetime.strptime(new_item.created_at, 
+            existing_item.created_at = datetime.strptime(new_item.created_at,
                                                          "%Y-%m-%d")
             db.session.commit()
             return {
