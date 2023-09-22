@@ -12,12 +12,11 @@ class Library:
     
     def meet_visitor(self, visitor):
         print(f"\nПриглашаем посетителя {visitor}")
-        self.visitors_count.acquire()
-        print(f"\n Спрашиваем у посетителя {visitor} какую книгу он хочет")
-        print("\nУсиленно ищем")
-        time.sleep(3)
-        print("\nНАШЛИ")
-        self.visitors_count.release()
+        with self.visitors_count:
+            print(f"\n Спрашиваем у посетителя {visitor} какую книгу он хочет")
+            print("\nУсиленно ищем")
+            time.sleep(3)
+            print("\nНАШЛИ")
     
     def visitors(self, count):
         
