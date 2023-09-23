@@ -1,8 +1,12 @@
+import os
 from datetime import datetime
 from flask import jsonify
 from .mem_storage import MemoryStorage
 from domain.book_db_model import SQLBook, db
 from domain.book import Book
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class DataBaseStorage(MemoryStorage):
@@ -13,7 +17,11 @@ class DataBaseStorage(MemoryStorage):
 
     def __init__(self,
                  app=None,
-                 database_uri="sqlite:///test.db"):
+                 database_uri=(
+                     f"mysql+pymysql://{os.getenv('USER')}:{os.getenv('PASSWORD')}"
+                     f"@{os.getenv('HOST')}:{os.getenv('PORT')}/{os.getenv('DB_NAME')}"
+                 )
+                 ):
         self.database_uri = database_uri
         self.db = db
         if app is not None:
@@ -24,8 +32,7 @@ class DataBaseStorage(MemoryStorage):
         self.app = app
         self.app.config["SQLALCHEMY_DATABASE_URI"] = self.database_uri
         self.db.init_app(self.app)
-        # Обнуление и создание базы данных
-        self.db.drop_all()
+        # Создание базы таблиц
         self.db.create_all()
 
     def add(self, item: Book):
