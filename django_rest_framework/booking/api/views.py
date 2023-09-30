@@ -12,8 +12,8 @@ class UserModelViewSet(viewsets.ModelViewSet):
     http_method_names = ["post", "patch", "get"]
     serializer_class = UserSerializer
     
-    authentication_classes = []
-    permission_classes = []
+    # authentication_classes = []
+    # permission_classes = []
 
 class HotelModelViewSet(viewsets.ModelViewSet):
     queryset = Hotel.objects.all()
