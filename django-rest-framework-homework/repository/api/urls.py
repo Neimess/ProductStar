@@ -1,6 +1,7 @@
 from rest_framework.routers import DefaultRouter
 
-from api.views import UserModelViewSet, RepositoryModelViewSet, ItemModelViewSet, OrderModelViewSet
+from api.views import UserModelViewSet, RepositoryModelViewSet, \
+                        ItemModelViewSet, OrderModelViewSet
 
 router = DefaultRouter()
 router.register('users', UserModelViewSet)

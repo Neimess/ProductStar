@@ -27,7 +27,8 @@ class Repository(models.Model):
     location = models.CharField(max_length=128)
 
     def __str__(self) -> str:
-        return f"Repositories' name is  {self.name}, located at {self.location}"
+        return f"""Repositories' name is  {self.name},
+                        located at {self.location}"""
 
 
 class Item(models.Model):
